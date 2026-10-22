@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIRS | Business Research & Innovation Society — UET KSK Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --parchment: #f4f1e8;
+            --parchment-dark: #e8dfcb;
+            --forest: #2d4a3e;
+            --forest-dark: #1b3022;
+            --forest-deep: #0f2217;
+            --gold: #b8860b;
+            --gold-light: #d4af37;
+            --gold-pale: #e8dcc8;
+            --ink: #3e2723;
+            --sepia: #704214;
+            --cream: #fff8e7;
+            --vellum: #faf6eb;
+            --shadow-paper: rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--parchment);
+            color: var(--ink);
+            font-family: 'Libre Baskerville', Georgia, serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif-display, .cinzel {
+            font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+        }
+
+        /* Texture overlay for parchment feel */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(123, 63, 0, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(45, 74, 62, 0.08) 0%, transparent 45%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Masthead / Header */
+        .masthead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--forest-deep);
+            border-bottom: 4px double var(--gold);
+            box-shadow: 0 4px 20px var(--shadow-paper);
+        }
+
+        .masthead-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-main {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            color: var(--gold-pale);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 0.4rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.4rem;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--gold-light);
+            transition: 0.3s;
+        }
+
+        /* Mobile drawer */
+        .mobile-drawer {
+            position: fixed;
+            inset: 0;
+            background: var(--forest-dark);
+            z-index: 200;
+            transform: translateX(100%);
+            transition: transform 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        .mobile-drawer a {
+            display: block;
+            color: var(--cream);
+            text-decoration: none;
+            padding: 0.9rem 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gold-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 34, 23, 0.7);
+            z-index: 150;
+            display: none;
+        }
+
+        /* Hero / Proclamation */
+        .hero {
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1.2rem;
+            background: var(--forest);
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px var(--shadow-paper);
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            color: var(--forest-dark);
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 .dropcap {
+            display: inline-block;
+            font-size: 1.6em;
+            padding-right: 0.15em;
+            color: var(--gold);
+        }
+
+        .hero p.subtitle {
+            font-family: 'Playfair Display', italic, serif;
+            font-size: 1.25rem;
+            color: var(--sepia);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-seal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            background: var(--forest-dark);
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            transition: 0.3s;
+            box-shadow: 0 3px 8px var(--shadow-paper);
+        }
+
+        .btn-seal:hover {
+            background: var(--gold);
+            color: var(--forest-dark);
+            border-color: var(--forest-dark);
+        }
+
+        .btn-seal.secondary {
+            background: transparent;
+            color: var(--forest-dark);
+            border-color: var(--forest-dark);
+        }
+
+        .btn-seal.secondary:hover {
+            background: var(--forest-dark);
+            color: var(--cream);
+        }
+
+        /* Ornamental divider */
+        .ornament {
+            width: 100%;
+            max-width: 700px;
+            margin: 3.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.4em;
+            opacity: 0.7;
+        }
+
+        .ornament-line {
+            flex: 1;
+            height: 1px;
+            background: repeating-linear-gradient(to right, var(--gold) 0, var(--gold) 4px, transparent 4px, transparent 8px);
+        }
+
+        /* Section base */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-head .kicker {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--sepia);
+            display: block;
+            margin-bottom: 0.7rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            color: var(--forest-dark);
+            line-height: 1.2;
+            margin-bottom: 0.9rem;
+        }
+
+        .section-head p {
+            color: var(--sepia);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* About / Charter */
+        .charter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .charter-text p {
+            margin-bottom: 1.2rem;
+            color: var(--ink);
+        }
+
+        .charter-text strong {
+            color: var(--forest-dark);
+        }
+
+        .charter-crests {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .crest-pair {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .crest-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border: 1px solid var(--gold);
+            background: var(--cream);
+            padding: 8px;
+            box-shadow: 0 4px 12px var(--shadow-paper);
+        }
+
+        .crest-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--sepia);
+            text-align: center;
+            margin-top: 0.4rem;
+        }
+
+        /* Advisor */
+        .advisor-card {
+            background: var(--vellum);
+            border: 1px solid var(--gold);
+            padding: 2.5rem;
+            margin: 0 auto;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 6px 18px var(--shadow-paper);
+        }
+
+        .advisor-card::before {
+            content: "";
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 1px solid var(--gold-light);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .advisor-head {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .advisor-monogram {
+            width: 70px;
+            height: 70px;
+            background: var(--forest-dark);
+            color: var(--gold-light);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: -0.05em;
+        }
+
+        .advisor-meta h3 {
+            font-size: 1.5rem;
+            color: var(--forest-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .advisor-meta p {
+            font-size: 0.85rem;
+            color: var(--sepia);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Cinzel', serif;
+        }
+
+        blockquote.epistle {
+            font-family: 'Playfair Display', italic, serif;
+            font-size: 1.25rem;
+            color: var(--ink);
+            border-left: 3px solid var(--gold);
+            padding-left: 1.2rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        /* Cabinet */
+        .cabinet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .officer-card {
+            background: var(--cream);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 3px 10px var(--shadow-paper);
+            transition: transform 0.2s;
+        }
+
+        .officer-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--forest-dark);
+        }
+
+        .officer-rank {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--sepia);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .officer-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--forest-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .officer-duty {
+            font-size: 0.85rem;
+            color: var(--ink);
+            font-style: italic;
+        }
+
+        .officer-card::before {
+            content: attr(data-initial);
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: rgba(45,74,62,0.12);
+        }
+
+        /* Wings */
+        .wings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .wing-card {
+            background: var(--vellum);
+            border-top: 4px solid var(--gold);
+            padding: 1.75rem;
+            box-shadow: 0 4px 12px var(--shadow-paper);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wing-card::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--gold-light) 10px, var(--gold-light) 20px);
+            opacity: 0.5;
+        }
+
+        .wing-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .wing-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            color: var(--forest-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .wing-desc {
+            font-size: 0.9rem;
+            color: var(--ink);
+        }
+
+        /* Contact */
+        .contact-wrap {
+            max-width: 620px;
+            margin: 0 auto;
+            background: var(--vellum);
+            border: 1px solid var(--gold);
+            padding: 2.5rem 2rem;
+            box-shadow: 0 6px 20px var(--shadow-paper);
+        }
+
+        .contact-wrap label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            color: var(--sepia);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-wrap input,
+        .contact-wrap textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--cream);
+            border: 1px solid var(--gold);
+            color: var(--ink);
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            border-radius: 2px;
+        }
+
+        .contact-wrap input:focus,
+        .contact-wrap textarea:focus {
+            outline: none;
+            border-color: var(--forest-dark);
+        }
+
+        .contact-wrap button {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--forest-dark);
+            color: var(--cream);
+            border: 1px solid var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-wrap button:hover {
+            background: var(--gold);
+            color: var(--forest-dark);
+        }
+
+        #form-note {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: rgba(184,134,11,0.1);
+            border: 1px dashed var(--gold);
+            color: var(--sepia);
+            font-size: 0.85rem;
+            font-style: italic;
+            display: none;
+        }
+
+        /* Footer */
+        .colophon {
+            border-top: 4px double var(--forest-dark);
+            background: var(--forest-dark);
+            color: var(--cream);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .colophon-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .colophon-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .colophon-brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .colophon-brand span {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 0.15em;
+        }
+
+        .colophon-copy {
+            font-size: 0.8rem;
+            color: var(--gold-pale);
+            letter-spacing: 0.1em;
+        }
+
+        .colophon-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .colophon-tags span {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .colophon a {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: flex; }
+            .charter-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .crest-pair { gap: 1rem; }
+            .crest-img { width: 120px; height: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Masthead -->
+    <header class="masthead">
+        <div class="masthead-inner">
+            <div class="brand-block" onclick="scrollTo('home')" style="cursor:pointer;">
+                <img src="BRIS LOGO.png" alt="BIRS Badge" class="brand-logo" onerror="this.style.display='none'">
+                <div class="brand-text">
+                    <div class="brand-main">Business Research & innovation society</div>
+                    <div class="brand-sub">UET &bull; KSK Campus</div>
+                </div>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="scrollTo('home')">Proclamation</a></li>
+                <li><a href="#about" onclick="scrollTo('about')">Charter</a></li>
+                <li><a href="#advisor" onclick="scrollTo('advisor')">Advisor's Epistle</a></li>
+                <li><a href="#core" onclick="scrollTo('core')">Cabinet</a></li>
+                <li><a href="#departments" onclick="scrollTo('departments')">Wings</a></li>
+                <li><a href="#contact" onclick="scrollTo('contact')">Correspondence</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <button class="drawer-close" id="drawerClose">&times;</button>
+        <a href="#home" onclick="closeDrawer()">Proclamation</a>
+        <a href="#about" onclick="closeDrawer()">Charter</a>
+        <a href="#advisor" onclick="closeDrawer()">Advisor's Epistle</a>
+        <a href="#core" onclick="closeDrawer()">Cabinet</a>
+        <a href="#departments" onclick="closeDrawer()">Wings</a>
+        <a href="#contact" onclick="closeDrawer()">Correspondence</a>
+    </div>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-badge">Department of Management Sciences</div>
+        <h1>
+            <span class="dropcap">B</span>usiness Research
+            <br>
+            <span style="color:var(--gold);">&amp;</span> Innovation Society
+        </h1>
+        <p class="subtitle">A vintage charter of scholarly enterprise, bridging the rigor of engineering with the craft of business inquiry at the University of Engineering & Technology, Kala Shah Kaku Campus.</p>
+        <div class="hero-actions">
+            <a href="#advisor" class="btn-seal">Read the Epistle</a>
+            <a href="#core" class="btn-seal secondary">Review the Cabinet</a>
+        </div>
+    </section>
+
+    <div class="ornament"><span class="ornament-line"></span>Sigillum<span class="ornament-line"></span></div>
+
+    <!-- About / Charter -->
+    <section id="about" class="section">
+        <div class="section-head">
+            <span class="kicker">Chapter I</span>
+            <h2>The Charter &amp; Institutional Nexus</h2>
+            <p>BIRS stands as a society of record under the Department of Business &amp; Management, uniting academic precision with corporate innovation.</p>
+        </div>
+
+        <div class="charter-grid">
+            <div class="charter-text">
+                <p><strong>Founded in Purpose.</strong> The Business Research &amp; Innovation Society was chartered to serve as the intellectual bridge between engineering exactitude and the applied arts of commerce.</p>
+                <p><strong>Mission.</strong> To cultivate empirical research, symposium discourse, pitch enterprise, and student-led leadership across the KSK campus and beyond.</p>
+                <p><strong>Affiliation.</strong> Operated under the patronage of the Department of Management Sciences, University of Engineering &amp; Technology, Kala Shah Kaku Campus.</p>
+            </div>
+            <div class="charter-crests">
+                <div class="crest-pair">
+                    <div>
+                        <img src="University Engineering Technology KSK Emblem.png" alt="UET KSK Emblem" class="crest-img" onerror="this.style.display='none'">
+                        <div class="crest-label">UET KSK Campus</div>
+                    </div>
+                    <div>
+                        <img src="BRIS LOGO.png" alt="BIRS Badge" class="crest-img" onerror="this.style.display='none'">
+                        <div class="crest-label">BRIS LOGO</div>
+                    </div>
+                </div>
+                <div style="font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.2em; color:var(--sepia); text-align:center; margin-top:1rem;">
+                    Two seals, one charter
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament"><span class="ornament-line"></span>Litterae<span class="ornament-line"></span></div>
+
+    <!-- Advisor -->
+    <section id="advisor" class="section">
+        <div class="section-head">
+            <span class="kicker">Chapter II</span>
+            <h2>The Advisor's Epistle</h2>
+            <p>A message from the Society's steward, Dr. Kanwal Iqbal.</p>
+        </div>
+
+        <div class="advisor-card">
+            <div class="advisor-head">
+                <div class="advisor-monogram">KI</div>
+                <div class="advisor-meta">
+                    <h3>Dr. Kanwal Iqbal</h3>
+                    <p>Society Advisor &bull; Department of Business &amp; Management</p>
+                </div>
+            </div>
+            <blockquote class="epistle" style="background-color: #faf6eb;">
+                "Let inquiry be disciplined, let leadership be purposeful, and let every endeavour bear the mark of service. BIRS exists not merely to assemble, but to advance—through research, through rigour, and through the quiet courage of enterprise."
+            </blockquote>
+            <p style="color:var(--sepia); font-style:italic;">Under Dr. Iqbal's guidance, the society continues to foster critical thought and entrepreneurial spirit among the scholars of UET KSK Campus.</p>
+        </div>
+    </section>
+
+    <div class="ornament"><span class="ornament-line"></span>Officium<span class="ornament-line"></span></div>
+
+    <!-- Cabinet -->
+    <section id="core" class="section">
+        <div class="section-head">
+            <span class="kicker">Chapter III</span>
+            <h2>Cabinet of Officers</h2>
+            <p>The student stewardship directing BIRS initiatives.</p>
+        </div>
+
+        <div class="cabinet-grid">
+            <div class="officer-card" data-initial="M">
+                <span class="officer-rank">President</span>
+                <div class="officer-name">Musabbih Mughal</div>
+                <p class="officer-duty">Strategic vision and corporate outreach.</p>
+            </div>
+            <div class="officer-card" data-initial="H">
+                <span class="officer-rank">Vice President</span>
+                <div class="officer-name">Hunain Yasir</div>
+                <p class="officer-duty">Internal administration and workflows.</p>
+            </div>
+            <div class="officer-card" data-initial="N">
+                <span class="officer-rank">Vice President</span>
+                <div class="officer-name">Noor-ul-Ain</div>
+                <p class="officer-duty">Research wings and symposiums.</p>
+            </div>
+            <div class="officer-card" data-initial="A">
+                <span class="officer-rank">General Secretary</span>
+                <div class="officer-name">Muhammad Ahmed</div>
+                <p class="officer-duty">Documentation and official records.</p>
+            </div>
+            <div class="officer-card" data-initial="U">
+                <span class="officer-rank">Joint Secretary</span>
+                <div class="officer-name">Uswa Maryam</div>
+                <p class="officer-duty">Member communication and liaison.</p>
+            </div>
+            <div class="officer-card" data-initial="F">
+                <span class="officer-rank">Finance Director</span>
+                <div class="officer-name">Haroon Raza</div>
+                <p class="officer-duty">Budgets, audits, and sponsorships.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament"><span class="ornament-line"></span>Alæ<span class="ornament-line"></span></div>
+
+    <!-- Wings -->
+    <section id="departments" class="section">
+        <div class="section-head">
+            <span class="kicker">Chapter IV</span>
+            <h2>Functional Wings</h2>
+            <p>The operational units through which the society executes its charter.</p>
+        </div>
+
+        <div class="wings-grid">
+            <div class="wing-card">
+                <span class="wing-number">Wing 01</span>
+                <div class="wing-title">Campus Networking</div>
+                <p>Director: Zainab Anees</p>
+                <p>Co Director: Muhammad Jamal</p> <br>
+                <p class="wing-desc">Inter-campus liaison and industrial visits.</p>
+            </div>
+            <div class="wing-card">
+                <span class="wing-number">Wing 02</span>
+                <div class="wing-title">Media Team</div>
+                <p>Director: Alishba Naeem</p>
+                <p>Co Director: Sania Mamoon</p>
+                <p>Co Director: Abdullah Asif</p> <br>
+                <p class="wing-desc">Photography, videography, and social production.</p>
+            </div>
+            <div class="wing-card">
+                <span class="wing-number">Wing 03</span>
+                <div class="wing-title">Event Management</div>
+                <p>Director: Saba Iqbal</p>
+                <p>Co Director: Ahmad Shahbaz</p> <br>
+                <p class="wing-desc">Conferences, pitch competitions, logistics.</p>
+            </div>
+            <div class="wing-card">
+                <span class="wing-number">Wing 04</span>
+                <div class="wing-title">Decor Wing</div>
+                <p>Director: Anam Munir</p>
+                <p>Co Director: Amna Zahid</p> <br>
+                <p class="wing-desc">Stage aesthetics and venue branding.</p>
+            </div>
+            <div class="wing-card">
+                <span class="wing-number">Wing 05</span>
+                <div class="wing-title">Graphics Team</div>
+                <p>Director: Ume Hani</p>
+                <p>Co Director: Muhammad Fazran Saleem</p> <br>
+                <p class="wing-desc">Digital posters, brand guidelines, and UI craft.</p>
+            </div>
+            <div class="wing-card">
+                <span class="wing-number">Wing 06</span>
+                <div class="wing-title">Documentation</div>
+                <p>Director: Eman Saeed</p>
+                <p>Co Director: Muhammad Tayyab</p> <br>
+                <p class="wing-desc">Research reports, minutes, and content writing.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament"><span class="ornament-line"></span>Scriptorium<span class="ornament-line"></span></div>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <div class="section-head">
+            <span class="kicker">Chapter V</span>
+            <h2>Inquiry &amp; Correspondence</h2>
+            <p>Address your letter to the Society's scribes.</p>
+        </div>
+
+        <div class="contact-wrap">
+            <form id="contactForm">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Musabbih Ahmed">
+
+                <label for="email">Seal Address (Email)</label>
+                <input type="email" id="email" name="email" required placeholder="name@uetksk.edu.pk">
+
+                <label for="roll">Roll Number / Batch</label>
+                <input type="text" id="roll" name="roll" placeholder="e.g. 2023-UET-KSK-001">
+
+                <label for="message">Parchment Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="State your inquiry..."></textarea>
+
+                <button type="submit">Despatch Letter</button>
+            </form>
+            <div id="form-note">
+                <i data-lucide="seal" class="w-4 h-4 inline mr-1" style="vertical-align:middle;"></i>
+                Your correspondence has been received and entered into the society register.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="colophon">
+        <div class="colophon-inner">
+            <div class="colophon-brand">
+                <img src="BRIS LOGO.png" alt="BIRS" onerror="this.style.display='none'">
+                <span>BIRS</span>
+            </div>
+            <div class="colophon-copy">
+                &copy; <span id="year">2026</span> Business Research &amp; Innovation Society. All rights reserved under charter.
+            </div>
+            <div class="colophon-tags">
+                <span>UET Accredited</span>
+                <span>KSK Campus</span>
+                <span>Dept. of Business</span>
+            </div>
+            <a href="#home">Return to Proclamation <span style="font-family:'Cinzel',serif;">&rarr;</span></a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile drawer
+        const toggle = document.getElementById('mobileToggle');
+        const closeBtn = document.getElementById('drawerClose');
+        const drawer = document.getElementById('mobileDrawer');
+        const overlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.style.display = 'block';
+        }
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.style.display = 'none';
+        }
+
+        toggle.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // Smooth scroll helper
+        window.scrollTo = function(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            closeDrawer();
+        };
+
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Contact form
+        const form = document.getElementById('contactForm');
+        const note = document.getElementById('form-note');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const original = btn.textContent;
+            btn.textContent = 'Despatching...';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.textContent = original;
+                btn.disabled = false;
+                form.reset();
+                note.style.display = 'block';
+                setTimeout(() => { note.style.display = 'none'; }, 5000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
